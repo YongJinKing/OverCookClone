@@ -8,6 +8,8 @@ public class GameInput : MonoBehaviour
 {
 
     public event EventHandler OnInteractAction;
+    public event EventHandler OnInteractAlternateAction;
+
     private PlayerInputAction playerInputActions;
 
     private void Awake() {
@@ -15,6 +17,14 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Enable();
 
         playerInputActions.Player.Interact.performed += Interact_performed;
+        playerInputActions.Player.InteractAlternate.performed += InteractArlternate_performed;
+
+    }
+
+    private void InteractArlternate_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        //InputAction에서 설정한 상호작용 키 실행
+        OnInteractAlternateAction?.Invoke(this, EventArgs.Empty); //제공자 이벤트 실행
     }
     private void Interact_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
