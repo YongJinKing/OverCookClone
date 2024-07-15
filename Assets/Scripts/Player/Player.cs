@@ -150,7 +150,7 @@ public class Player : MonoBehaviour,IkitchenObjectParent
         this.selectedCounter = selectedCounter;
         OnSelectedCounterChanged?.Invoke(this, new OnSelecteedCounterChangedEventArgs
         {
-            selectedCounter = selectedCounter,
+            selectedCounter = selectedCounter
         });
     }
     public Transform GetKitchenObjectFollowTransform()

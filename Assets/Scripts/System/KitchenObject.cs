@@ -15,22 +15,23 @@ public class KitchenObject : MonoBehaviour
         return kitchenObjectSO;
     }
 
-    public void SetKitchenObjectParent(IkitchenObjectParent kitchenObject)
+    public void SetKitchenObjectParent(IkitchenObjectParent kitchenObjectParent)
     {
+        Debug.Log(this.kitchenObjectParent);
         if(this.kitchenObjectParent != null)
         {
             this.kitchenObjectParent.ClearKitchenObject();
 
         }
-        this.kitchenObjectParent = kitchenObject;
+        this.kitchenObjectParent = kitchenObjectParent;
 
-        if(kitchenObject.HasKitchenObject())
+        if(kitchenObjectParent.HasKitchenObject())
         {
             Debug.LogError("버그임");
         }
-        kitchenObject.SetKitchenObject(this);
+        kitchenObjectParent.SetKitchenObject(this);
 
-        transform.parent = kitchenObject.GetKitchenObjectFollowTransform();
+        transform.parent = kitchenObjectParent.GetKitchenObjectFollowTransform();
         transform.localPosition = Vector3.zero;
     }
     public IkitchenObjectParent GetKitchenObjectParent()
@@ -43,11 +44,11 @@ public class KitchenObject : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public static KitchenObject SpawKitchenObject(KitchenObjectSO kitchenObjectSO, IkitchenObjectParent kitcehnObjectParent)
+    public static KitchenObject SpawKitchenObject(KitchenObjectSO kitchenObjectSO, IkitchenObjectParent kitchenObjectParent)
     {
         Transform kitchenObjectTransform = Instantiate(kitchenObjectSO.prefab);
         KitchenObject kitchenObject = kitchenObjectTransform.GetComponent<KitchenObject>();
-        kitchenObject .SetKitchenObjectParent(kitcehnObjectParent);
+        kitchenObject.SetKitchenObjectParent(kitchenObjectParent);
 
         return kitchenObject;
     }
