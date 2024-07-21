@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class ClearCounter : BaseCounter
 {
+    
+
     [SerializeField]private KitchenObjectSO kitchenObjectSO;
-  
+    
 
     public override void Interact(Player player)
     {
@@ -24,6 +26,26 @@ public class ClearCounter : BaseCounter
        {
             if(player.HasKitchenObject())
             {
+                if(player.GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))
+                {
+                    if(plateKitchenObject.TryAddIngredient(GetKitchenObject().GetKitchenObjectSO()))
+                    {
+                        GetKitchenObject().DestroySelf();
+                    }
+                    
+                }
+                else
+                {
+                    //플레이어가 접시를 들고있지 않을때
+                    if(GetKitchenObject().TryGetPlate(out plateKitchenObject))
+                    {
+                        //카운터에 접시가 있음
+                        if(plateKitchenObject.TryAddIngredient(player.GetKitchenObject().GetKitchenObjectSO()))
+                        {
+                            player.GetKitchenObject().DestroySelf();
+                        }
+                    }
+                }
 
             }
             else
