@@ -7,8 +7,21 @@ public class DeliveryManagerUI : MonoBehaviour
     [SerializeField] private Transform container;
     [SerializeField] private Transform recipeTemplate;
 
-    private void Start() {
-        
+    private void Start() 
+    {
+        DeliveryManager.Instance.OnRecipeSpawned += DeliveryManager_OnRecipeSpawned;
+        DeliveryManager.Instance.OnRecipeCompleted += DeliveryManager_OnRecipeCompleted;
+
+        UpdateVisual();
+    }
+    
+    private void DeliveryManager_OnRecipeSpawned(object sender, System.EventArgs e)
+    {
+        UpdateVisual();
+    }
+    private void DeliveryManager_OnRecipeCompleted(object sender, System.EventArgs e)
+    {
+        UpdateVisual();
     }
 
     private void UpdateVisual()
@@ -19,7 +32,8 @@ public class DeliveryManagerUI : MonoBehaviour
         }
         foreach(RecipeSO recipeSO in DeliveryManager.Instance.GetWaitingRecipeSoList())
         {
-            Instantiate(recipeTemplate, container);
+            Transform recipeTransform = Instantiate(recipeTemplate, container);
+            recipeTransform.GetComponent<DeliveryManagerSingleUI>().SetRecipeSO(recipeSO);
         }
     }
 }

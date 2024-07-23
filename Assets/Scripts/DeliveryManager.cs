@@ -82,7 +82,7 @@ public class DeliveryManager : MonoBehaviour
                 }
             }
         }
-        Debug.Log("플레이어가 주문에 알맞는 요리를 생성하지 않음");
+        
     }
     public List<RecipeSO> GetWaitingRecipeSoList()
     {
