@@ -544,7 +544,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.5
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1863,6 +1863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 611123580}
   - component: {fileID: 611123581}
+  - component: {fileID: 611123582}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1904,6 +1905,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   kitchenObjectHoldPoint: {fileID: 704953090}
+--- !u!114 &611123582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611123579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a6273f4097173a4dab3f26e2e22d1d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &631012980
 GameObject:
   m_ObjectHideFlags: 0
