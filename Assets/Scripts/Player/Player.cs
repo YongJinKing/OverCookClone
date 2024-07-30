@@ -171,7 +171,10 @@ public class Player : MonoBehaviour,IkitchenObjectParent
             OnPickedSomething?.Invoke(this, System.EventArgs.Empty);
         }
     }
-
+    public BaseCounter GetSelectedCounter()
+    {
+        return selectedCounter;
+    }
     public KitchenObject GetKitchenObject()
     {
         return kitchenObject;
