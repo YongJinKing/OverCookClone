@@ -10,9 +10,9 @@ public class TrashCounter : BaseCounter
 
     public override void Interact(Player player)
     {
-        if(player.HasKitchenObject())
+        if(player.HasKitchenObjectOnTheTop())
         {
-            player.GetKitchenObject().DestroySelf();
+            player.GetKitchenObjectOnTheTop().DestroySelf();
 
             OnAnyObjectTrashed?.Invoke(this, System.EventArgs.Empty);
         }

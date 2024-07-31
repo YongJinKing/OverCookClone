@@ -9,6 +9,7 @@ public class GameInput : MonoBehaviour
 
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
+    public event EventHandler OnInteractThrowAction;
 
     private PlayerInputAction playerInputActions;
 
@@ -18,9 +19,14 @@ public class GameInput : MonoBehaviour
 
         playerInputActions.Player.Interact.performed += Interact_performed;
         playerInputActions.Player.InteractAlternate.performed += InteractArlternate_performed;
+        playerInputActions.Player.InteractThrow.performed += InteractThrow_Performed;
 
     }
 
+    private void InteractThrow_Performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnInteractThrowAction?.Invoke(this, EventArgs.Empty);
+    }
     private void InteractArlternate_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
     {
         //InputAction에서 설정한 상호작용 키 실행

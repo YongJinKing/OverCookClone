@@ -283,6 +283,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 8381409942573484078}
+  counterBottomPoint: {fileID: 5593361072578318075}
+--- !u!4 &5593361072578318075 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7668443157925788478, guid: 73942cefce0e72143a792e057a14cb86,
+    type: 3}
+  m_PrefabInstance: {fileID: 2879018622636242373}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8381409942573484078 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6027201416965307883, guid: 73942cefce0e72143a792e057a14cb86,

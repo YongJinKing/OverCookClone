@@ -32,7 +32,7 @@ public class PlatesCounter : BaseCounter
     }
     public override void Interact(Player player)
     {
-        if(!player.HasKitchenObject())
+        if(!player.HasKitchenObjectOnTheTop())
         {
             //플레이어가 아무것도 안들고 있을때
 

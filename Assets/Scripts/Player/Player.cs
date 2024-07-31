@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour,IkitchenObjectParent
+public class Player : MonoBehaviour, IkitchenObjectParent
 {
     public static Player Instance { get; private set; }
     
@@ -31,6 +31,16 @@ public class Player : MonoBehaviour,IkitchenObjectParent
     private void Start() {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
         gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
+        gameInput.OnInteractThrowAction += GameInput_OnInteractThrow;
+    }
+
+    private void GameInput_OnInteractThrow(object sender, System.EventArgs e)
+    {
+        if(!KitchenGameManager.Instance.IsGamePlayingActive()) return;
+        if(HasKitchenObjectOnTheTop())
+        {
+            ThrowKitchenObject();
+        }
     }
     private void GameInput_OnInteractAlternateAction(object sender, System.EventArgs e)
     {
@@ -74,7 +84,7 @@ public class Player : MonoBehaviour,IkitchenObjectParent
     private void HandleInteractions()
     {
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
-
+           
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
         if(moveDir != Vector3.zero)
         {
@@ -109,7 +119,7 @@ public class Player : MonoBehaviour,IkitchenObjectParent
         Vector2 inputVector = gameInput.GetMovementVectorNormalized();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
-
+        
         float moveDistance = moveSpeed * Time.deltaTime;
         float playerRadius = 0.7f;
         float playerHeight = 2f;
@@ -149,6 +159,12 @@ public class Player : MonoBehaviour,IkitchenObjectParent
         float rotateSpeed = 10f;
         transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotateSpeed);
     }
+    private void ThrowKitchenObject()
+    {
+        //kitchenObject.ThrowKitchenObject(transform.forward);
+        //몸방향으로 날리면 조준이 힘든 느낌이여서 이렇게 해봄
+        kitchenObject.ThrowKitchenObject(lastInteractDir);
+    }
     private void SetSelectedCounter(BaseCounter selectedCounter)
     {
         this.selectedCounter = selectedCounter;
@@ -175,18 +191,19 @@ public class Player : MonoBehaviour,IkitchenObjectParent
     {
         return selectedCounter;
     }
-    public KitchenObject GetKitchenObject()
+    public KitchenObject GetKitchenObjectOnTheTop()
     {
         return kitchenObject;
     }
 
-    public void ClearKitchenObject() 
+    public void ClearKitchenObjectOnTheTop() 
     {
         kitchenObject = null;
     }
 
-    public bool HasKitchenObject()
+    public bool HasKitchenObjectOnTheTop()
     {
         return kitchenObject != null;
     }
+    
 }

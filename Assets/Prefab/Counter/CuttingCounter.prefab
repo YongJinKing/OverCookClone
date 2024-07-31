@@ -258,6 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 6790387597311337317}
+  counterBottomPoint: {fileID: 7490451723047642544}
   cuttingRecipeSOArray:
   - {fileID: 11400000, guid: e79c208df0bb28e41bcc4200e1f30910, type: 2}
   - {fileID: 11400000, guid: 2dca0c5c2c67e2e4892f515ddf731b64, type: 2}
@@ -271,6 +272,12 @@ Transform:
 --- !u!4 &6790387597311337317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6027201416965307883, guid: 73942cefce0e72143a792e057a14cb86,
+    type: 3}
+  m_PrefabInstance: {fileID: 979715762808118926}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7490451723047642544 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7668443157925788478, guid: 73942cefce0e72143a792e057a14cb86,
     type: 3}
   m_PrefabInstance: {fileID: 979715762808118926}
   m_PrefabAsset: {fileID: 0}

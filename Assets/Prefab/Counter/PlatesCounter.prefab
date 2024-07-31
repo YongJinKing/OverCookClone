@@ -99,8 +99,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 8251581065260220639}
+  counterBottomPoint: {fileID: 5425890800765404682}
   plateKitchenObjectSO: {fileID: 11400000, guid: 2200e2c5e2040be459081b055ac1941d,
     type: 2}
+--- !u!4 &5425890800765404682 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7668443157925788478, guid: 73942cefce0e72143a792e057a14cb86,
+    type: 3}
+  m_PrefabInstance: {fileID: 2388995241469181236}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8251581065260220639 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6027201416965307883, guid: 73942cefce0e72143a792e057a14cb86,

@@ -99,6 +99,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 7233273568181018144}
+  counterBottomPoint: {fileID: 6750504765415004405}
+--- !u!4 &6750504765415004405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7668443157925788478, guid: 73942cefce0e72143a792e057a14cb86,
+    type: 3}
+  m_PrefabInstance: {fileID: 4018710866912633803}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7233273568181018144 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6027201416965307883, guid: 73942cefce0e72143a792e057a14cb86,

@@ -257,6 +257,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6496567010702267118}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &3477826931261368784 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7668443157925788478, guid: 73942cefce0e72143a792e057a14cb86,
+    type: 3}
+  m_PrefabInstance: {fileID: 6496567010702267118}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8293831148149268384 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2968411165063892302, guid: 73942cefce0e72143a792e057a14cb86,
@@ -276,6 +282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   counterTopPoint: {fileID: 688094751779237637}
+  counterBottomPoint: {fileID: 3477826931261368784}
   fryingRecipeSOArray:
   - {fileID: 11400000, guid: 624242c7ac948154a9ac2c462a7d4045, type: 2}
   burningRecipeSOArray:
