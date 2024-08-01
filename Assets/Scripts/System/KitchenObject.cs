@@ -6,19 +6,22 @@ using UnityEngine.UIElements;
 
 public class KitchenObject : MonoBehaviour
 {
-   
+    
     [SerializeField] private KitchenObjectSO kitchenObjectSO;
     private bool throwingKitchenObject;
     private LayerMask counterLayerMask;
 
     private IkitchenObjectParent kitchenObjectParent;
 
+    private BaseCounter selectedCounter;
+
     private Vector3 playerDir;
     private void Start() 
     {
-        throwingKitchenObject = false;
+        Player.Instance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
         counterLayerMask = 1 << LayerMask.NameToLayer("Counters");
-    }   
+        throwingKitchenObject = false;
+    } 
     private void Update() 
     {
         if(throwingKitchenObject)
@@ -30,38 +33,45 @@ public class KitchenObject : MonoBehaviour
             transform.position += playerDir * moveSpeed * Time.deltaTime;
             if (Physics.CapsuleCast(transform.position,transform.position + Vector3.up * kitchenObjectHeight, kitchenObjectRadius, playerDir, out RaycastHit raycastHit, moveDistance, counterLayerMask))
             {
-                if(raycastHit.transform.TryGetComponent(out ICanPlaceKitchenObject counter))
+                if(raycastHit.transform.TryGetComponent(out ICanPlaceKitchenObject counter))//카운터 확인
                 {
-                    if(!counter.GetBaseCounter().HasKitchenObjectOnTheTop())// 카운터 위에 물건이 없으면
+                    if(!counter.GetBaseCounter().HasKitchenObject())// 카운터 위에 물건이 없으면
                     {
                         counter.TryGetRecipe(this);
-                        throwingKitchenObject = false;
+                        //해당 카운터랑 상호작용이 가능한 재료일 때
                     }
                     else //카운터 위에 물건이 있으면
                     {
-                        if(counter.GetBaseCounter().GetKitchenObjectOnTheTop().TryGetPlate(out PlateKitchenObject plateKitchenObject))//counter가 가지고 있는 물건이 접시인지 확인
+                        if(counter.GetBaseCounter().GetKitchenObject().TryGetPlate(out PlateKitchenObject plateKitchenObject))//counter가 가지고 있는 물건이 접시인지 확인
                         {
                             if(plateKitchenObject.TryAddIngredient(GetKitchenObjectSO()))//접시위에 재료 및 던진 재료와 비교
                             {
-                                DestroySelf();
+                                DestroyKitchenObject();
+                            }
+                            else//재료가 일치하지 않으면
+                            {
+
+                                SetGarbageParents(counter.GetBaseCounter());
                             }
                             
                         }// 접시가 아니면
                         else
                         {
                             SetGarbageParents(counter.GetBaseCounter());
-                            throwingKitchenObject = false;
                         }
                     } 
                 }
-                else
+                else//카운터 위에 물건을 올릴수가 없을 때
                 {
+                    
                     if(raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
                     {
                         SetGarbageParents(baseCounter);
                     }
                 }
+                throwingKitchenObject = false;
             }
+            
         }
     }
     public KitchenObjectSO GetKitchenObjectSO()
@@ -73,12 +83,12 @@ public class KitchenObject : MonoBehaviour
     {
         if(this.kitchenObjectParent != null)
         {
-            this.kitchenObjectParent.ClearKitchenObjectOnTheTop();
+            this.kitchenObjectParent.ClearKitchenObject();
 
         }
         this.kitchenObjectParent = kitchenObjectParent;
 
-        if(kitchenObjectParent.HasKitchenObjectOnTheTop())
+        if(kitchenObjectParent.HasKitchenObject())
         {
             Debug.LogError("버그임");
         }
@@ -89,24 +99,45 @@ public class KitchenObject : MonoBehaviour
     }
     public void SetGarbageParents(BaseCounter baseCounter)
     {
-        if(baseCounter != null)
+        if(baseCounter.HasGarbageOnTheBottom())
         {
-            baseCounter.SetBottomGarbage(null);
+            
+            //위치저장
+            Vector3 position1 = baseCounter.GetGarbage().transform.position;
+            Vector3 position2 = transform.position;
+            //부모 관계 저장
+            Transform parent1 = baseCounter.GetGarbage().transform.parent;
+            Transform parent2 = transform.parent;
+            //위치변경
+            baseCounter.GetGarbage().transform.position = position2;
+            transform.position = position1;
+            //부모 관계 변경
+            baseCounter.GetGarbage().transform.parent = parent2;
+            transform.parent = parent1;
+            
+            Destroy(baseCounter.GetGarbage().gameObject);
+
+            baseCounter.ConvertAndSetBottomGarbage(this);
         }
-        baseCounter.SetBottomGarbage(this);
-        transform.parent = baseCounter.GetBottomPoint();
-        transform.localPosition = Vector3.zero;
+        else
+        {
+            baseCounter.ConvertAndSetBottomGarbage(this);
+            transform.parent = baseCounter.GetBottomPoint();
+            transform.localPosition = Vector3.zero;
+        }
+        
     }
     
     public IkitchenObjectParent GetKitchenObjectParent()
     {
         return kitchenObjectParent;
     }
-    public void DestroySelf()
+    public void DestroyKitchenObject()
     {
-        kitchenObjectParent.ClearKitchenObjectOnTheTop();
+        kitchenObjectParent.ClearKitchenObject();
         Destroy(gameObject);
     }
+    
 
     public bool TryGetPlate(out PlateKitchenObject plateKitchenObject)
     {
@@ -132,10 +163,21 @@ public class KitchenObject : MonoBehaviour
     }
     public void ThrowKitchenObject(Vector3 playerDir)
     {
-        transform.SetParent(null);
-        Player.Instance.ClearKitchenObjectOnTheTop();
-        this.playerDir = new Vector3(playerDir.x, 0, playerDir.z);
-        throwingKitchenObject = true;
+        if(selectedCounter)
+        {
+            selectedCounter.Interact(Player.Instance);
+        }
+        else
+        {
+            transform.SetParent(null);
+            Player.Instance.ClearKitchenObject();
+            this.playerDir = new Vector3(playerDir.x, 0, playerDir.z);
+            throwingKitchenObject = true;
+        }
+    }
+    private void Player_OnSelectedCounterChanged(object sender, Player.OnSelecteedCounterChangedEventArgs e)
+    {
+        selectedCounter = e.selectedCounter;
     }
 
     

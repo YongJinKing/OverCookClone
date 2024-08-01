@@ -12,7 +12,7 @@ public class ContainerCounter : BaseCounter
 
     public override void Interact(Player player)
     {
-        if(!player.HasKitchenObjectOnTheTop())
+        if(!player.HasKitchenObject())
         {
             //플레이어가 아무것도 안가지고 있을때 실행
             KitchenObject.SpawKitchenObject(kitchenObjectSO,player);

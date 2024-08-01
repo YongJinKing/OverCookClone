@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4cbf238b68e654faec01087e01375a, type: 3}
+  m_Name: Cabbage-CabbageGarbage
+  m_EditorClassIdentifier: 
+  input: {fileID: 11400000, guid: 1a5be24614eaa2049822e72f4525b3b4, type: 2}
+  output:
+  - {fileID: 11400000, guid: 181e5367c07d4c642a0c1e4b37b5b290, type: 2}

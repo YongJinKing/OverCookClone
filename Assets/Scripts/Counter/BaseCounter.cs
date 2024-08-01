@@ -10,8 +10,10 @@ public class BaseCounter : MonoBehaviour, IkitchenObjectParent//Counter들이 �
 
     [SerializeField]private Transform counterBottomPoint;
 
-    protected KitchenObject kitchenObjectOnTheTop;
-    protected KitchenObject kitchenObjectOnTheBottom;
+    protected KitchenObject kitchenObject;
+    protected KitchenObject garbage;
+
+    
     public virtual void Interact(Player player)// 자식으로 부터 실행되는 virtual 함수
     {
         
@@ -26,40 +28,45 @@ public class BaseCounter : MonoBehaviour, IkitchenObjectParent//Counter들이 �
     }
     public void SetKitchenObject(KitchenObject kitchenObject)//counter에 kitchenObjcet생성
     {
-        this.kitchenObjectOnTheTop = kitchenObject;
+        this.kitchenObject = kitchenObject;
         if(kitchenObject != null)
         {
             OnAnyObjectPlacedHere?.Invoke(this, System.EventArgs.Empty);
         }
     }
 
-    public KitchenObject GetKitchenObjectOnTheTop()//Counter위에 있는 치킨오브젝트를 받아옴
+    public KitchenObject GetKitchenObject()//Counter위에 있는 치킨오브젝트를 받아옴
     {
-        return kitchenObjectOnTheTop;
+        return kitchenObject;
     }
 
-    public void ClearKitchenObjectOnTheTop() //Counter위에 있는 오브젝트를 삭제함
+    public void ClearKitchenObject() //Counter위에 있는 오브젝트를 삭제함
     {
-        kitchenObjectOnTheTop = null;
+        kitchenObject = null;
     }
 
-    public bool HasKitchenObjectOnTheTop() // Counter위에 오브젝트가 있는지 확인함
+    public bool HasKitchenObject() // Counter위에 오브젝트가 있는지 확인함
     {
-        return kitchenObjectOnTheTop != null;
+        return kitchenObject != null;
     }
 
 
-    public void SetBottomGarbage(KitchenObject kitchenObject)
+
+    public KitchenObject GetGarbage()
     {
-        this.kitchenObjectOnTheBottom = kitchenObject;
-        /* if(kitchenObject != null)
-        {
-            OnAnyObjectPlacedHere?.Invoke(this, System.EventArgs.Empty);
-        } */
+        return garbage;
+    }
+    public void ConvertAndSetBottomGarbage(KitchenObject kitchenObject)
+    {
+        this.garbage = kitchenObject;
     }
     public Transform GetBottomPoint() // 바닥 포인트
     {
         return counterBottomPoint;
+    }
+    public bool HasGarbageOnTheBottom()
+    {
+        return garbage != null;
     }
     
 }

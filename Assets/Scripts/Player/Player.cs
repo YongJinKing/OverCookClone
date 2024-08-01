@@ -37,7 +37,7 @@ public class Player : MonoBehaviour, IkitchenObjectParent
     private void GameInput_OnInteractThrow(object sender, System.EventArgs e)
     {
         if(!KitchenGameManager.Instance.IsGamePlayingActive()) return;
-        if(HasKitchenObjectOnTheTop())
+        if(HasKitchenObject())
         {
             ThrowKitchenObject();
         }
@@ -91,7 +91,7 @@ public class Player : MonoBehaviour, IkitchenObjectParent
             lastInteractDir = moveDir;
         }
     
-        float interactDistance = 2f;
+        float interactDistance = 1.2f;
         if(Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, counterLayerMask))
         {
             if(raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
@@ -191,17 +191,17 @@ public class Player : MonoBehaviour, IkitchenObjectParent
     {
         return selectedCounter;
     }
-    public KitchenObject GetKitchenObjectOnTheTop()
+    public KitchenObject GetKitchenObject()
     {
         return kitchenObject;
     }
 
-    public void ClearKitchenObjectOnTheTop() 
+    public void ClearKitchenObject() 
     {
         kitchenObject = null;
     }
 
-    public bool HasKitchenObjectOnTheTop()
+    public bool HasKitchenObject()
     {
         return kitchenObject != null;
     }
