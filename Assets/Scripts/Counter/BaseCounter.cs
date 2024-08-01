@@ -3,15 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseCounter : MonoBehaviour, IkitchenObjectParent//Counter들이 가지고 상속받고 있는 부모 클래스
+public class BaseCounter : MonoBehaviour, IkitchenObjectParent, IGarbageObjectParent//Counter들이 가지고 상속받고 있는 부모 클래스
 {
     public static event EventHandler OnAnyObjectPlacedHere; //Counter위에 물건 올리면 실행되는 이벤트
     [SerializeField]private Transform counterTopPoint;
 
     [SerializeField]private Transform counterBottomPoint;
 
+    private ConvertKitchenObjectToGarbageObjectSO[] convertKitchenObjectToGarbageObjectSOArray;
+
     protected KitchenObject kitchenObject;
     protected KitchenObject garbage;
+
+    private void Start() 
+    {
+        convertKitchenObjectToGarbageObjectSOArray = Resources.LoadAll<ConvertKitchenObjectToGarbageObjectSO>("ScriptableObjects/ConvertKitchenObjectToGarbageObjectSO");
+    }
 
     
     public virtual void Interact(Player player)// 자식으로 부터 실행되는 virtual 함수

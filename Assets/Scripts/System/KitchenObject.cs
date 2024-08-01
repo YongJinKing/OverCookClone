@@ -50,14 +50,13 @@ public class KitchenObject : MonoBehaviour
                             }
                             else//재료가 일치하지 않으면
                             {
-
-                                SetGarbageParents(counter.GetBaseCounter());
+                                ConvertKitchenObjevt2GarbageObject(counter.GetBaseCounter());
                             }
                             
                         }// 접시가 아니면
                         else
                         {
-                            SetGarbageParents(counter.GetBaseCounter());
+                            ConvertKitchenObjevt2GarbageObject(counter.GetBaseCounter());
                         }
                     } 
                 }
@@ -66,7 +65,7 @@ public class KitchenObject : MonoBehaviour
                     
                     if(raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
                     {
-                        SetGarbageParents(baseCounter);
+                        ConvertKitchenObjevt2GarbageObject(baseCounter);
                     }
                 }
                 throwingKitchenObject = false;
@@ -97,7 +96,7 @@ public class KitchenObject : MonoBehaviour
         transform.parent = kitchenObjectParent.GetKitchenObjectFollowTransform();
         transform.localPosition = Vector3.zero;
     }
-    public void SetGarbageParents(BaseCounter baseCounter)
+    public void ConvertKitchenObjevt2GarbageObject(BaseCounter baseCounter)
     {
         if(baseCounter.HasGarbageOnTheBottom())
         {
@@ -117,7 +116,7 @@ public class KitchenObject : MonoBehaviour
             
             Destroy(baseCounter.GetGarbage().gameObject);
 
-            baseCounter.ConvertAndSetBottomGarbage(this);
+            baseCounter.ConvertAndSetBottomGarbage(this);//이부분 수정해야됨
         }
         else
         {

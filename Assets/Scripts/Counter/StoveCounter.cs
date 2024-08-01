@@ -222,7 +222,7 @@ public class StoveCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
         }
         else
         {
-            kitchenObject.SetGarbageParents(this);
+            kitchenObject.ConvertKitchenObjevt2GarbageObject(this);
         }
         
     }
