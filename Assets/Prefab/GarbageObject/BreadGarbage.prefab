@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7970351210419062227}
   - component: {fileID: 3310953786284609369}
   - component: {fileID: 5295628466849290868}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BreadGarbage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ddef0fac344634ca5a8780f34590c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  garbageObjectSO: {fileID: 11400000, guid: cfc0cdbecb272af43879ff16a14d7ae7, type: 2}
+  kitchenObjectSO: {fileID: 11400000, guid: 5ebf95b45271ebb4fa0a88bcd893816f, type: 2}
 --- !u!65 &5295628466849290868
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 2916223063548507175}
   - component: {fileID: 6854117772878547172}
   - component: {fileID: 5837102494466025153}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4907,6 +4907,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7970351210419062227}
     m_Modifications:
+    - target: {fileID: 2278059630995854716, guid: bc49891f572f1164e9938f845ec37ab0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3514692424523703113, guid: bc49891f572f1164e9938f845ec37ab0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3812876574508226176, guid: bc49891f572f1164e9938f845ec37ab0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4961,6 +4971,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bread_Visual
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812876574508226177, guid: bc49891f572f1164e9938f845ec37ab0,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -20,7 +20,7 @@ public class PlateKitchenObject : KitchenObject
 
     private void Awake() 
     {
-        kitchenObjectSOList = new List<KitchenObjectSO>();    
+        kitchenObjectSOList = new List<KitchenObjectSO>();
     }
 
     public bool TryAddIngredient(KitchenObjectSO kitchenObjectSO)//재료확인
@@ -51,4 +51,5 @@ public class PlateKitchenObject : KitchenObject
     {
         return kitchenObjectSOList;
     }
+    
 }

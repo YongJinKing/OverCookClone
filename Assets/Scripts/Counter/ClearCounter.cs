@@ -11,7 +11,7 @@ public class ClearCounter : BaseCounter, ICanPlaceKitchenObject
        {
             if(player.HasKitchenObject())//플레이어가 물건을 가지고 있으면
             {
-                player.GetKitchenObject().SetKitchenObjectParentOnTheTop(this);//플레이어가 가지고 있는 오브젝트를 해당 카운터에 상속시킴
+                player.GetKitchenObject().SetKitchenObjectParent(this);//플레이어가 가지고 있는 오브젝트를 해당 카운터에 상속시킴
             }
             else
             {
@@ -45,7 +45,7 @@ public class ClearCounter : BaseCounter, ICanPlaceKitchenObject
             }
             else
             {
-                GetKitchenObject().SetKitchenObjectParentOnTheTop(player);
+                GetKitchenObject().SetKitchenObjectParent(player);
             }
        }
     }
@@ -57,7 +57,7 @@ public class ClearCounter : BaseCounter, ICanPlaceKitchenObject
     public void TryGetRecipe(KitchenObject kitchenObject)
     {
         
-        kitchenObject.SetKitchenObjectParentOnTheTop(this);
+        kitchenObject.SetKitchenObjectParent(this);
         
     }
 

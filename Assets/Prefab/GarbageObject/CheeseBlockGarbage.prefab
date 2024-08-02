@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7970351210419062227}
   - component: {fileID: 1530850522680319398}
   - component: {fileID: 215601430515232807}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CheeseBlockGarbage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ddef0fac344634ca5a8780f34590c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  garbageObjectSO: {fileID: 11400000, guid: 2634faf84f566e84aa736798f26d7848, type: 2}
+  kitchenObjectSO: {fileID: 11400000, guid: be68e1d1e8476a642af651b6986df722, type: 2}
 --- !u!65 &215601430515232807
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 5341421536745014827}
   - component: {fileID: 6100718541733671316}
   - component: {fileID: 2060086138163566410}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4907,6 +4907,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7970351210419062227}
     m_Modifications:
+    - target: {fileID: 1539263837262546413, guid: 44325c67017631342b5f02792113e57b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3812876574508226176, guid: 44325c67017631342b5f02792113e57b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4961,6 +4966,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheeseBlock_Visual
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812876574508226177, guid: 44325c67017631342b5f02792113e57b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

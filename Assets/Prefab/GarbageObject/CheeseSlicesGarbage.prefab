@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7970351210419062227}
   - component: {fileID: 3324516436641098867}
   - component: {fileID: 8105046653448724079}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CheeseSlicesGarbage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ddef0fac344634ca5a8780f34590c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  garbageObjectSO: {fileID: 11400000, guid: 248fcf80dfed4c94d940ddd5525dd29f, type: 2}
+  kitchenObjectSO: {fileID: 11400000, guid: 0c200b6b2dcaa5a40a8b3c47b61065dc, type: 2}
 --- !u!65 &8105046653448724079
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 5964038535007883175}
   - component: {fileID: 7763438255565739618}
   - component: {fileID: 8409746970102274710}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4907,6 +4907,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7970351210419062227}
     m_Modifications:
+    - target: {fileID: 3636682449342876961, guid: 17cb28a1a37fd7f44ae6e1ad2aa9da78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 3812876574508226176, guid: 17cb28a1a37fd7f44ae6e1ad2aa9da78,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4961,6 +4966,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CheeseSlices_Visual
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812876574508226177, guid: 17cb28a1a37fd7f44ae6e1ad2aa9da78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5799688130343373630, guid: 17cb28a1a37fd7f44ae6e1ad2aa9da78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131566372644697225, guid: 17cb28a1a37fd7f44ae6e1ad2aa9da78,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

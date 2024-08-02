@@ -18,6 +18,7 @@ public class CuttingCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
 
     private State state;
     private float cuttingTimer;
+    private float cuttingTimerMax;
     
 
     [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
@@ -26,10 +27,12 @@ public class CuttingCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
 
     private int cuttingProgress;
 
-    private void Start() 
+    protected override void Start() 
     {
+        base.Start();
         state = State.Idle;
         cuttingTimer = 0.25f;
+        cuttingTimerMax = 0.25f;
     }
     private void Update() 
     {
@@ -98,7 +101,7 @@ public class CuttingCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
             {
                 if(HasRecipeWithInput(player.GetKitchenObject().GetKitchenObjectSO()))
                 {
-                    player.GetKitchenObject().SetKitchenObjectParentOnTheTop(this);
+                    player.GetKitchenObject().SetKitchenObjectParent(this);
                     cuttingProgress = 0;
                     state = State.Idle;
                     CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
@@ -130,7 +133,7 @@ public class CuttingCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
             }
             else
             {
-                GetKitchenObject().SetKitchenObjectParentOnTheTop(player);
+                GetKitchenObject().SetKitchenObjectParent(player);
             }
        }
     }
@@ -173,7 +176,7 @@ public class CuttingCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
     {
         if(HasRecipeWithInput(kitchenObject.GetKitchenObjectSO()))
         {
-            kitchenObject.SetKitchenObjectParentOnTheTop(this);
+            kitchenObject.SetKitchenObjectParent(this);
             cuttingProgress = 0;
             state = State.Idle;
             CuttingRecipeSO cuttingRecipeSO = GetCuttingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
@@ -185,7 +188,7 @@ public class CuttingCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
         }
         else
         {
-            kitchenObject.ConvertKitchenObjevt2GarbageObject(this);
+            kitchenObject.ConvertObject(this);
         }
         
     }

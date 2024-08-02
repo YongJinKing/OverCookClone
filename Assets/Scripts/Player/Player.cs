@@ -15,9 +15,18 @@ public class Player : MonoBehaviour, IkitchenObjectParent
         //전송할 이벤트 프로퍼티 설정
     }
 
+    public event EventHandler<OnSelecteedGarbageChangedEventArgs> OnSelectedGarbage;
+    public class OnSelecteedGarbageChangedEventArgs : EventArgs{
+        public GarbageObject selectedGarbage;
+        //전송할 이벤트 프로퍼티 설정
+    }
+
     [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private LayerMask counterLayerMask;
+    
     [SerializeField] private Transform kitchenObjectHoldPoint;
+    
+    private LayerMask counterLayerMask;
+    private LayerMask garbageLayerMask;
     private GameInput gameInput;
 
 
@@ -25,15 +34,29 @@ public class Player : MonoBehaviour, IkitchenObjectParent
     private bool isWalking;
     private Vector3 lastInteractDir;
     private BaseCounter selectedCounter;
+    private GarbageObject selectedGarbage;
     private KitchenObject kitchenObject;
 
     
-    private void Start() {
+    private void Start() 
+    {
         gameInput.OnInteractAction += GameInput_OnInteractAction;
         gameInput.OnInteractAlternateAction += GameInput_OnInteractAlternateAction;
         gameInput.OnInteractThrowAction += GameInput_OnInteractThrow;
+        gameInput.OnInteractCleanAction += GameInput_OnInteractClean;
+
+        counterLayerMask = 1 << LayerMask.NameToLayer("Counters");
+        garbageLayerMask = 1 << LayerMask.NameToLayer("Garbage");
     }
 
+    private void GameInput_OnInteractClean(object sender, System.EventArgs e)
+    {
+        if(!KitchenGameManager.Instance.IsGamePlayingActive()) return;
+        if(selectedGarbage != null)
+        {
+            selectedGarbage.InteractClean();
+        }
+    }
     private void GameInput_OnInteractThrow(object sender, System.EventArgs e)
     {
         if(!KitchenGameManager.Instance.IsGamePlayingActive()) return;
@@ -89,12 +112,14 @@ public class Player : MonoBehaviour, IkitchenObjectParent
         if(moveDir != Vector3.zero)
         {
             lastInteractDir = moveDir;
+
         }
     
         float interactDistance = 1.2f;
-        if(Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, counterLayerMask))
+        #region RayCastSelectedCounter
+        if(Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHitCounter, interactDistance, counterLayerMask))
         {
-            if(raycastHit.transform.TryGetComponent(out BaseCounter baseCounter))
+            if(raycastHitCounter.transform.TryGetComponent(out BaseCounter baseCounter))
             {
                 //ClearCounter스크립트를 가지고 있으면 실행
                 if(baseCounter != selectedCounter)
@@ -111,7 +136,28 @@ public class Player : MonoBehaviour, IkitchenObjectParent
         {
             SetSelectedCounter(null);
         }
-        
+        #endregion
+        #region RayCastGarbage
+        float moveDistance = 0.7f;
+        float playerRadius = 0.7f;
+        float playerHeight = 2f;
+        if(Physics.CapsuleCast(transform.position,transform.position + Vector3.up * playerHeight, playerRadius, lastInteractDir, out RaycastHit raycastHitGarbage, moveDistance, garbageLayerMask))
+        {
+            if(raycastHitGarbage.transform.TryGetComponent(out GarbageObject garbageObject))
+            {
+                SetSelectedGarbage(garbageObject);
+            }
+            else
+            {
+                SetSelectedGarbage(null);
+            }
+        }
+        else
+        {
+            SetSelectedGarbage(null);
+        }
+
+        #endregion
         
     }
     private void HandleMovement()
@@ -137,8 +183,8 @@ public class Player : MonoBehaviour, IkitchenObjectParent
             } 
             else
             {
-                
                 Vector3 moveDirZ = new Vector3(0,0,moveDir.z).normalized;
+
                 canMove = moveDir.z != 0 && !Physics.CapsuleCast(transform.position, transform.position + Vector3.up * playerHeight, playerRadius, moveDirZ, moveDistance);
                 if(canMove)
                 {
@@ -172,6 +218,15 @@ public class Player : MonoBehaviour, IkitchenObjectParent
         {
             selectedCounter = selectedCounter
         });
+    }
+    private void SetSelectedGarbage(GarbageObject garbageObject)
+    {   
+        this.selectedGarbage = garbageObject;
+        OnSelectedGarbage?.Invoke(this, new OnSelecteedGarbageChangedEventArgs
+        {
+            selectedGarbage = garbageObject
+        });
+
     }
     public Transform GetKitchenObjectFollowTransform()
     {

@@ -6,11 +6,13 @@ public interface IGarbageObjectParent
 {
     public KitchenObject GetGarbage();
     
-    public void ConvertAndSetBottomGarbage(KitchenObject kitchenObject);
+    public void SetBottomGarbage(KitchenObject kitchenObject);
     
     public Transform GetBottomPoint();
     
-    public bool HasGarbageOnTheBottom();
+    public bool HasGarbage();
+
+    public void ClearGarbage();
     
 
     

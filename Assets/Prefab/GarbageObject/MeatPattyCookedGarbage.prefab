@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7970351210419062227}
   - component: {fileID: -8143413453734907396}
   - component: {fileID: 1328422574954416444}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: MeatPattyCookedGarbage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ddef0fac344634ca5a8780f34590c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  garbageObjectSO: {fileID: 11400000, guid: 9fe0356b20dac33499c2ca4a1af81a01, type: 2}
+  kitchenObjectSO: {fileID: 11400000, guid: 647e63ce7471d4d4b955330032b4481e, type: 2}
 --- !u!65 &1328422574954416444
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 1414194186731785048}
   - component: {fileID: 7790110594602168810}
   - component: {fileID: 8225357662599072481}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4961,6 +4961,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MeatPattyCooked_Visual
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812876574508226177, guid: e879ff1414d1dd64c9ad7b04bffdfaef,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3826258110291410859, guid: e879ff1414d1dd64c9ad7b04bffdfaef,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

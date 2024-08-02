@@ -15,7 +15,7 @@ public class BaseCounter : MonoBehaviour, IkitchenObjectParent, IGarbageObjectPa
     protected KitchenObject kitchenObject;
     protected KitchenObject garbage;
 
-    private void Start() 
+    protected virtual void Start() 
     {
         convertKitchenObjectToGarbageObjectSOArray = Resources.LoadAll<ConvertKitchenObjectToGarbageObjectSO>("ScriptableObjects/ConvertKitchenObjectToGarbageObjectSO");
     }
@@ -63,17 +63,62 @@ public class BaseCounter : MonoBehaviour, IkitchenObjectParent, IGarbageObjectPa
     {
         return garbage;
     }
-    public void ConvertAndSetBottomGarbage(KitchenObject kitchenObject)
+    public void SetBottomGarbage(KitchenObject kitchenObject)
     {
         this.garbage = kitchenObject;
-    }
+        kitchenObject.transform.parent = GetBottomPoint();
+        kitchenObject.transform.localPosition = Vector3.zero;
+        var garbage = Instantiate(GetConvertGarbageSOWithOutput(GetConvertGarbageSOWithInput(kitchenObject)).prefab);
+        SwitchObject(GetGarbage().transform, garbage.transform);
+        this.garbage = garbage.GetComponent<GarbageObject>();
+    }   
     public Transform GetBottomPoint() // 바닥 포인트
     {
         return counterBottomPoint;
     }
-    public bool HasGarbageOnTheBottom()
+    public bool HasGarbage()
     {
         return garbage != null;
     }
-    
+    private ConvertKitchenObjectToGarbageObjectSO GetConvertGarbageSOWithInput(KitchenObject kitchenObject)
+    {
+        
+        foreach(var convertKitchenObjectToGarbageObjectSO in convertKitchenObjectToGarbageObjectSOArray)
+        {
+            
+            if(convertKitchenObjectToGarbageObjectSO.input == kitchenObject.GetKitchenObjectSO())
+            {
+                return convertKitchenObjectToGarbageObjectSO;
+            }
+            
+        }
+        return null;
+    }
+    public void ClearGarbage()
+    {
+        garbage = null;
+    }
+    private KitchenObjectSO GetConvertGarbageSOWithOutput(ConvertKitchenObjectToGarbageObjectSO convertKitchenObjectToGarbageObjectSO)
+    {
+        return convertKitchenObjectToGarbageObjectSO.output[0];
+    }
+    public void SwitchObject(Transform pos1, Transform pos2)//pos1은 삭제되는 오브젝트, pos2는 갱신되는 오브젝트
+    {
+
+        //위치저장
+        Vector3 position1 = pos1.position;
+        Vector3 position2 = pos2.position;
+        //부모 관계 저장
+        Transform parent1 = pos1.parent;
+        Transform parent2 = pos1.parent;
+        //위치변경
+        pos1.position = position2;
+        pos2.position = position1;
+            //부모 관계 변경
+        pos1.parent = parent2;
+        pos2.parent = parent1;
+            
+        Destroy(pos1.gameObject);    
+        
+    }
 }

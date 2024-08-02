@@ -4,55 +4,67 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
-public class GarbageObject : MonoBehaviour
+public class GarbageObject : KitchenObject
 {
-    [SerializeField] private GarbageObjectSO garbageObjectSO;
+    private GarbageObject selectGarbage;
 
-    //private IkitchenObjectParent kitchenObjectParent;
-
-
-    public GarbageObjectSO GetKitchenObjectSO()
+    private int cleaningProgress;
+    private float cleaningTimer;
+    private float cleaningTimerMax= 0.25f;
+    private State state;
+    public enum State
     {
-        return garbageObjectSO;
+        Idle,
+        Cleaning,
+        Done,
     }
-
-    /* public static GarbageObject SpawKitchenObject(GarbageObjectSO kitchenObjectSO, IkitchenObjectParent kitchenObjectParent)
+    private void Start() 
     {
-        Transform garbageOjectTransform = Instantiate(kitchenObjectSO.prefab);
-        GarbageObject garbageObject = garbageOjectTransform.GetComponent<GarbageObject>();
-        garbageObject.SetGarbageParents(kitchenObjectParent);
-
-        return garbageObject;
-    } */
-
-    /* public void SetGarbageParents(BaseCounter baseCounter)
-    {
-        if(baseCounter.HasGarbageOnTheBottom())
-        {
-            
-            //위치저장
-            Vector3 position1 = baseCounter.GetGarbage().transform.position;
-            Vector3 position2 = transform.position;
-            //부모 관계 저장
-            Transform parent1 = baseCounter.GetGarbage().transform.parent;
-            Transform parent2 = transform.parent;
-            //위치변경
-            baseCounter.GetGarbage().transform.position = position2;
-            transform.position = position1;
-            //부모 관계 변경
-            baseCounter.GetGarbage().transform.parent = parent2;
-            transform.parent = parent1;
-            
-            Destroy(baseCounter.GetGarbage().gameObject);
-
-            baseCounter.ConvertAndSetBottomGarbage(this);
-        }
-        else
-        {
-            baseCounter.ConvertAndSetBottomGarbage(this);
-            transform.parent = baseCounter.GetBottomPoint();
-            transform.localPosition = Vector3.zero;
-        }
         
-    } */
+        Player.Instance.OnSelectedGarbage += Player_OnSelectedGarbage;
+        cleaningTimer = 0.25f;
+    }
+    private void Player_OnSelectedGarbage(object sender, Player.OnSelecteedGarbageChangedEventArgs e)
+    {
+        selectGarbage = e.selectedGarbage;
+    }
+    private void Update() 
+    {
+        if(selectGarbage != null)
+        {
+            switch(state)
+            {
+                case State.Idle :
+                    break;
+                case State.Cleaning :
+                    if(selectGarbage != null)
+                    {   
+                        cleaningTimer += Time.deltaTime;
+                        if(cleaningTimer >= cleaningTimerMax)
+                        {
+                            cleaningProgress++;
+                        }
+                        if(cleaningProgress >= GetKitchenObjectSO().cleanCount)
+                        {
+                            cleaningProgress = 0;
+                            state = State.Done;
+                        }
+                    }
+                    break;
+                case State.Done :
+                    break;
+            }
+        }
+    }
+    public void InteractClean()// 자식으로 부터 실행되는 virtual 함수
+    {
+        state = State.Cleaning;
+        cleaningProgress = 0;
+        
+    }
+    private void DestroyGarbage()
+    {
+
+    }
+   
 }

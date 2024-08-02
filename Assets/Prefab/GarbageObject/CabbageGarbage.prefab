@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7970351210419062227}
   - component: {fileID: 4366143283291011218}
   - component: {fileID: 4601219502759522139}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CabbageGarbage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7ddef0fac344634ca5a8780f34590c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  garbageObjectSO: {fileID: 11400000, guid: 181e5367c07d4c642a0c1e4b37b5b290, type: 2}
+  kitchenObjectSO: {fileID: 11400000, guid: 804b8993e4b0ece42afd565d40338f6e, type: 2}
 --- !u!65 &4601219502759522139
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 502271832800876906}
   - component: {fileID: 5592626962686976305}
   - component: {fileID: 3849388394577089815}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4961,6 +4961,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cabbage_Visual
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812876574508226177, guid: 259702638197d9246bfc6f2b0fe88c09,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6979682845569653684, guid: 259702638197d9246bfc6f2b0fe88c09,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

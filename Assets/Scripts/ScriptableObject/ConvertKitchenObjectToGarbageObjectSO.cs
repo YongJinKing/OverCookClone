@@ -6,5 +6,5 @@ using UnityEngine;
 public class ConvertKitchenObjectToGarbageObjectSO : ScriptableObject
 {
     public KitchenObjectSO input;
-    public GarbageObjectSO[] output;
+    public KitchenObjectSO[] output;
 }

@@ -28,7 +28,9 @@ public class StoveCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
     private float burningTimer;
     private BurningRecipeSO burningRecipeSO;
 
-    private void Start() {
+    protected override void Start() 
+    {
+        base.Start();
         state = State.Idle;
     }
     private void Update() 
@@ -96,7 +98,7 @@ public class StoveCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
             {
                 if(HasRecipeWithInput(player.GetKitchenObject().GetKitchenObjectSO()))
                 {
-                    player.GetKitchenObject().SetKitchenObjectParentOnTheTop(this);
+                    player.GetKitchenObject().SetKitchenObjectParent(this);
 
                     fryingRecipeSO = GetFryingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
                     
@@ -143,7 +145,7 @@ public class StoveCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
             }
             else
             {
-                GetKitchenObject().SetKitchenObjectParentOnTheTop(player);
+                GetKitchenObject().SetKitchenObjectParent(player);
 
                 state = State.Idle;
 
@@ -204,7 +206,7 @@ public class StoveCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
     {
         if(HasRecipeWithInput(kitchenObject.GetKitchenObjectSO()))
         {
-            kitchenObject.SetKitchenObjectParentOnTheTop(this);
+            kitchenObject.SetKitchenObjectParent(this);
 
             fryingRecipeSO = GetFryingRecipeSOWithInput(GetKitchenObject().GetKitchenObjectSO());
                     
@@ -222,7 +224,7 @@ public class StoveCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
         }
         else
         {
-            kitchenObject.ConvertKitchenObjevt2GarbageObject(this);
+            kitchenObject.ConvertObject(this);
         }
         
     }
