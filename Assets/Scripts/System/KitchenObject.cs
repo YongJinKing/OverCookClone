@@ -72,6 +72,12 @@ public class KitchenObject : MonoBehaviour
                 }
                 throwingKitchenObject = false;
             }
+            else
+            {
+                
+                //Debug.Log($"안부딪힘{throwingKitchenObject}");
+            }
+            
             
         }
     }
@@ -158,7 +164,7 @@ public class KitchenObject : MonoBehaviour
             throwingKitchenObject = true;
         }
     }
-    private void Player_OnSelectedCounterChanged(object sender, Player.OnSelecteedCounterChangedEventArgs e)
+    private void Player_OnSelectedCounterChanged(object sender, Player.OnSelectedCounterChangedEventArgs e)
     {
         selectedCounter = e.selectedCounter;
     }

@@ -96,6 +96,7 @@ public class BaseCounter : MonoBehaviour, IkitchenObjectParent, IGarbageObjectPa
     }
     public void ClearGarbage()
     {
+
         garbage = null;
     }
     private KitchenObjectSO GetConvertGarbageSOWithOutput(ConvertKitchenObjectToGarbageObjectSO convertKitchenObjectToGarbageObjectSO)

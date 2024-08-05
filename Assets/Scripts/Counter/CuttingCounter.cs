@@ -46,7 +46,7 @@ public class CuttingCounter : BaseCounter, IHasProgress, ICanPlaceKitchenObject
                     if(Player.Instance.GetSelectedCounter() == this)
                     {
                         cuttingTimer += Time.deltaTime;
-                        if(cuttingTimer >= 0.25f)
+                        if(cuttingTimer >= cuttingTimerMax)
                         {
                             cuttingTimer = 0;
                             cuttingProgress++;

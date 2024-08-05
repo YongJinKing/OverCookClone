@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameOverUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text recipeDeliveredText;
+    [SerializeField] private TMP_Text garbageCountText;
 
     
 
@@ -17,17 +18,19 @@ public class GameOverUI : MonoBehaviour
 
         Hide();
     }
-    private void Update() 
+    /* private void Update() 
     {
         recipeDeliveredText.text = DeliveryManager.Instance.GetSucessfulRecipesAmount().ToString();
     }
-
+ */
     private void KitchenGameManager_OnStateChanged(object sender, System.EventArgs e)
     {
         if(KitchenGameManager.Instance.IsGameOver())
-        {            
-            Show();
+        {   
             recipeDeliveredText.text = DeliveryManager.Instance.GetSucessfulRecipesAmount().ToString();
+            garbageCountText.text = GameObject.Find("Counters").GetComponentsInChildren<GarbageObject>().Length.ToString();
+            Show();
+            
 
         }
         else

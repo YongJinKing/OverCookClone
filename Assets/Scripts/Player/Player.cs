@@ -9,14 +9,14 @@ public class Player : MonoBehaviour, IkitchenObjectParent
     
 
     public event EventHandler OnPickedSomething;
-    public event EventHandler<OnSelecteedCounterChangedEventArgs> OnSelectedCounterChanged;
-    public class OnSelecteedCounterChangedEventArgs : EventArgs{
+    public event EventHandler<OnSelectedCounterChangedEventArgs> OnSelectedCounterChanged;
+    public class OnSelectedCounterChangedEventArgs : EventArgs{
         public BaseCounter selectedCounter;
         //전송할 이벤트 프로퍼티 설정
     }
 
-    public event EventHandler<OnSelecteedGarbageChangedEventArgs> OnSelectedGarbage;
-    public class OnSelecteedGarbageChangedEventArgs : EventArgs{
+    public event EventHandler<OnSelectedGarbageChangedEventArgs> OnSelectedGarbage;
+    public class OnSelectedGarbageChangedEventArgs : EventArgs{
         public GarbageObject selectedGarbage;
         //전송할 이벤트 프로퍼티 설정
     }
@@ -214,7 +214,7 @@ public class Player : MonoBehaviour, IkitchenObjectParent
     private void SetSelectedCounter(BaseCounter selectedCounter)
     {
         this.selectedCounter = selectedCounter;
-        OnSelectedCounterChanged?.Invoke(this, new OnSelecteedCounterChangedEventArgs
+        OnSelectedCounterChanged?.Invoke(this, new OnSelectedCounterChangedEventArgs
         {
             selectedCounter = selectedCounter
         });
@@ -222,7 +222,7 @@ public class Player : MonoBehaviour, IkitchenObjectParent
     private void SetSelectedGarbage(GarbageObject garbageObject)
     {   
         this.selectedGarbage = garbageObject;
-        OnSelectedGarbage?.Invoke(this, new OnSelecteedGarbageChangedEventArgs
+        OnSelectedGarbage?.Invoke(this, new OnSelectedGarbageChangedEventArgs
         {
             selectedGarbage = garbageObject
         });

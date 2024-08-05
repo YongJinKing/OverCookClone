@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
-public class GarbageObject : KitchenObject
+public class GarbageObject : KitchenObject, IHasProgress
 {
     private GarbageObject selectGarbage;
 
+    
+    public event EventHandler<IHasProgress.OnProgressChangedEventArgs> OnProgressChanged;
     private int cleaningProgress;
-    private float cleaningTimer;
-    private float cleaningTimerMax= 0.25f;
+    private float cleaningTimer = 0.5f;
+    private float cleaningTimerMax= 0.5f;
     private State state;
     public enum State
     {
@@ -18,13 +21,13 @@ public class GarbageObject : KitchenObject
         Cleaning,
         Done,
     }
+
     private void Start() 
     {
         
         Player.Instance.OnSelectedGarbage += Player_OnSelectedGarbage;
-        cleaningTimer = 0.25f;
     }
-    private void Player_OnSelectedGarbage(object sender, Player.OnSelecteedGarbageChangedEventArgs e)
+    private void Player_OnSelectedGarbage(object sender, Player.OnSelectedGarbageChangedEventArgs e)
     {
         selectGarbage = e.selectedGarbage;
     }
@@ -43,12 +46,24 @@ public class GarbageObject : KitchenObject
                         if(cleaningTimer >= cleaningTimerMax)
                         {
                             cleaningProgress++;
+                            cleaningTimer = 0;
+                            OnProgressChanged?.Invoke(this, new IHasProgress.OnProgressChangedEventArgs
+                            {
+                                progressNormalized = (float)cleaningProgress / GetKitchenObjectSO().cleanCount
+                            });
                         }
                         if(cleaningProgress >= GetKitchenObjectSO().cleanCount)
                         {
                             cleaningProgress = 0;
+                            DestroyGarbage();
                             state = State.Done;
+                           
                         }
+                    }
+                    else
+                    {
+                        state = State.Idle;
+                        
                     }
                     break;
                 case State.Done :
@@ -56,15 +71,40 @@ public class GarbageObject : KitchenObject
             }
         }
     }
-    public void InteractClean()// 자식으로 부터 실행되는 virtual 함수
+    public void InteractClean()
     {
         state = State.Cleaning;
-        cleaningProgress = 0;
         
     }
     private void DestroyGarbage()
     {
-
+        
+        Transform findBaseCounter = transform;
+        while(true)
+        {
+            if(findBaseCounter.GetComponent<BaseCounter>() == null)
+            {
+                findBaseCounter = findBaseCounter.parent;
+            }
+            else
+            {
+                findBaseCounter.GetComponent<BaseCounter>().ClearGarbage();
+                break;
+            }
+        }
+        Destroy(gameObject);
+    }
+    public bool IsCleaning()
+    {
+        if(state == State.Cleaning)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
    
 }
