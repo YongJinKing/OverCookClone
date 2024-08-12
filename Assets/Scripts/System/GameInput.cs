@@ -7,15 +7,20 @@ using UnityEngine;
 
 public class GameInput : MonoBehaviour
 {
-
+    public static GameInput Instance { get; private set;}
+    
     public event EventHandler OnInteractAction;
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnInteractThrowAction;
     public event EventHandler OnInteractCleanAction;
+    public event EventHandler OnPauseAction;
 
     private PlayerInputAction playerInputActions;
 
-    private void Awake() {
+    private void Awake() 
+    {
+        Instance = this;
+
         playerInputActions = new PlayerInputAction();
         playerInputActions.Player.Enable();
 
@@ -23,7 +28,23 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.InteractAlternate.performed += InteractArlternate_performed;
         playerInputActions.Player.InteractThrow.performed += InteractThrow_Performed;
         playerInputActions.Player.InteractClean.performed += InteractClaen_Performed;
+        playerInputActions.Player.Pause.performed += Pause_performed;
 
+    }
+    private void OnDestroy() 
+    {
+        playerInputActions.Player.Interact.performed -= Interact_performed;
+        playerInputActions.Player.InteractAlternate.performed -= InteractArlternate_performed;
+        playerInputActions.Player.InteractThrow.performed -= InteractThrow_Performed;
+        playerInputActions.Player.InteractClean.performed -= InteractClaen_Performed;
+        playerInputActions.Player.Pause.performed -= Pause_performed;
+
+        playerInputActions.Dispose();
+    }
+
+    private void Pause_performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)
+    {
+        OnPauseAction?.Invoke(this, EventArgs.Empty);
     }
 
     private void InteractClaen_Performed(UnityEngine.InputSystem.InputAction.CallbackContext obj)

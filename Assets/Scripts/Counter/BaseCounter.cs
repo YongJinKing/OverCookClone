@@ -6,6 +6,12 @@ using UnityEngine;
 public class BaseCounter : MonoBehaviour, IkitchenObjectParent, IGarbageObjectParent//Counter들이 가지고 상속받고 있는 부모 클래스
 {
     public static event EventHandler OnAnyObjectPlacedHere; //Counter위에 물건 올리면 실행되는 이벤트
+
+    public static void ResetStaticData()
+    {
+        OnAnyObjectPlacedHere = null;        
+    }
+
     [SerializeField]private Transform counterTopPoint;
 
     [SerializeField]private Transform counterBottomPoint;
